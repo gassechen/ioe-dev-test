@@ -1,4 +1,14 @@
 # ioe-dev-test
+```shell
+chmod 775 build_ioe.sh
+./build_ioe.sh
+
+opencode 
+
+```
+
+
+
 ### 1. Define Logic (Hot RAM Test)
 Paste this into your ioe-dev-test file. When using your new tool, the function will be audited **and evaluated** simultaneously:
 
@@ -84,6 +94,16 @@ In your **Lisp Machine**, the Agent simply "thought" the function, IISCV audited
 
 
 # ioe-dev-test
+```shell
+chmod 775 build_ioe.sh
+./build_ioe.sh
+
+opencode 
+
+```
+
+
+
 ### 1. Definir Lógica (Prueba de RAM Caliente)
 Pega esto en la tui. Al usar tu nueva herramienta, la función se va a auditar **y a evaluar** al mismo tiempo:
 
@@ -103,13 +123,13 @@ Inmediatamente después, sin volver a usar `lisp_commit` ni `defun`, pedile al A
 ---
 
 ### 3. Persistencia (Congelar el Cerebro)
-Ahora vamos a guardar este estado. Recordﾃ｡ que IISCV pide un hito humano antes:
+Ahora vamos a guardar este estado. Recordo que IISCV pide un hito humano antes:
 
 ```lisp
 ;; 1. Hito Humano
-(lisp_evaluate-lisp "(iiscv::make-human-commit \"Integraciﾃｳn de lﾃｳgica REPL en MCP\")")
+(lisp_evaluate-lisp "(iiscv::make-human-commit \"Integracion de logica REPL en MCP\")")
 
-;; 2. Salvar imagen sobre sﾃｭ misma
+;; 2. Salvar imagen sobre si misma
 (lisp_evaluate-lisp "(sb-ext:save-lisp-and-die \"./ioe-dev\" :executable t :toplevel #'cl-mcp-server:run-server)")
 ```
 
