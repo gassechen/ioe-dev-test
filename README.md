@@ -1,4 +1,32 @@
 # ioe-dev-test
+1. The Bridge (MCP Server)
+The project uses an MCP server (cl-mcp-server) so that an LLM (like Gemini or Claude) can not only "write code" but also have tools for direct writing to system memory. The AI ​​ceases to be a chatbot and becomes a technical operator.
+
+2. The Security Filter (lisp_commit)
+Instead of the AI ​​sending code directly to the CPU, it sends it through the lisp_commit tool.
+
+What it does: Activates IISCV and LISA. Before the code is executed, it is audited. If the AI ​​generates sloppy or dangerous code, the system stops it before it reaches RAM.
+
+3. Execution and Soldering (EVAL + Snapshot)
+Once the code passes the audit, the project's magic happens:
+
+EVAL: The code is activated instantly. The machine "learns" the new function without restarting.
+
+Snapshot: The system generates a new executable binary of itself.
+
+What exactly does this achieve?
+It allows you to tell an AI, "Create new control logic for this sensor," and for the AI ​​to:
+
+Design the logic.
+
+Pass it through quality assurance.
+
+Inject it into the system.
+
+Save the updated executable.
+
+The end result is an autonomous executable that evolved following a natural language instruction, while maintaining the rigor of an industrial audit.
+
 
 [https://github.com/gassechen/iiscv/tree/main](iiscv)
 [https://github.com/quasi/cl-mcp-server](cl-mcp-server) 
