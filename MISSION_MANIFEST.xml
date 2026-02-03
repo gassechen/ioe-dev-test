@@ -1,0 +1,24 @@
+<mission_vector id="TARGET_SYSTEM_001">
+  <objective>
+    Construir un subsistema de [TIPO_DE_SOFTWARE] modular y persistente.
+  </objective>
+
+  <technical_stack>
+    <dependency>QUICKLISP::[LIBRERIA_EXTERNA]</dependency>
+    <target_package>IOE-APP-[MODULO]</target_package>
+  </technical_stack>
+
+  <task_backlog>
+    <task priority="1">Cargar dependencias y definir espacio de nombres auditado.</task>
+    <task priority="2">Implementar lógica de negocio documentada.</task>
+    <task priority="3">Certificar mediante tests unitarios y auditoría sistémica.</task>
+    <task priority="4">Exportar fuentes y soldar imagen binaria.</task>
+  </task_backlog>
+
+  <domain_constraints>
+    <![CDATA[
+      * El código debe ser modular y evitar efectos de sitio globales.
+      * Las exportaciones del paquete deben ser mínimas (Principio de Menor Privilegio).
+    ]]>
+  </domain_constraints>
+</mission_vector>
