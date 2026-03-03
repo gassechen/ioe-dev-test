@@ -1,0 +1,10 @@
+{
+  "$schema": "https://kilo.ai/config.json",
+  "mcp": {
+    "ioe-dev": {
+      "type": "local",
+      "command": ["./ioe-dev"],
+      "enabled": true
+    }
+  }
+}

@@ -14,40 +14,52 @@
 ;; 3. Registrar la herramienta COMMIT en el servidor MCP
 (in-package :cl-mcp-server.tools)
 
+;; Tool: lisp_commit
+;; Usa make-assert que:
+;; 1. Audita con LISA
+;; 2. Si score ≤ 10 → hace commit automático via rule-finalize-commit-to-graph
+;; 3. Si score > 10 → NO entra al grafo
 (register-tool
- "commit"
- "Audita, registra y evalúa código usando la lógica de iiscv-repl."
+ "lisp_commit"
+ "Audita código usando IISCV + LISA. Si pasa el filtro de calidad (score ≤ 10), se registra automáticamente."
  '(("type" . "object")
    ("required" . ("code"))
    ("properties" . (("code" . (("type" . "string")
-                               ("description" . "Código Lisp"))))))
+                               ("description" . "Código Lisp a auditar y registrar (defun, defmacro, defvar, etc.)"))))))
  (lambda (args session)
    (declare (ignore session))
    (let* ((code-str (cdr (assoc "code" args :test #'string=)))
           (form (read-from-string code-str)))
-     ;; Redirigimos el output para que el Agente reciba lo que el REPL imprimiría
      (with-output-to-string (*standard-output*)
        (handler-case
-           (progn
-             ;; USAMOS TU LÓGICA DE REPL:
-             ;; 1. Revisamos si es una forma para commitear
-             (when (iiscv::get-commit-type form)
-               ;; 2. Commiteamos la forma fuente
-               (iiscv:make-atomic-commit form))
-             
-             ;; 3. Evaluamos la forma (para que exista en RAM)
-             (let ((result (eval form)))
-               (unless (eq result :no-print)
-                 (print result))
-               (format t "~%[IISCV] Código integrado exitosamente.")))
-         (error (e) (format t "ERROR: ~A" e)))))))
+           (iiscv:make-assert form)
+         (error (e) 
+           (format t "ERROR en auditoría: ~A" e)))))))
+
+;; Tool: lisp_evaluate
+;; Para evaluar expresiones SIN auditoría (tests, debugging, cálculos)
+(register-tool
+ "lisp_evaluate"
+ "Evalúa expresiones Lisp sin auditoría (para tests, debugging, cálculos)."
+ '(("type" . "object")
+   ("required" . ("code"))
+   ("properties" . (("code" . (("type" . "string")
+                               ("description" . "Expresión Lisp a evaluar"))))))
+ (lambda (args session)
+   (declare (ignore session))
+   (let* ((code-str (cdr (assoc "code" args :test #'string=)))
+          (form (read-from-string code-str)))
+     (with-output-to-string (*standard-output*)
+       (handler-case
+           (let ((result (eval form)))
+             (unless (eq result :no-print)
+               (print result)))
+         (error (e) 
+           (format t "ERROR: ~A" e)))))))
 
 ;; 4. Volcar la imagen con el TOPLEVEL correcto
 (format t "~%[BUILD] Generando binario industrial: ioe-dev...~%")
 
-;; Importante: usamos uiop:symbol-call para asegurar que el paquete ya existe
 (sb-ext:save-lisp-and-die "ioe-dev" 
                          :executable t 
                          :toplevel (find-symbol "RUN-SERVER" :cl-mcp-server))
-
-
