@@ -67,6 +67,36 @@ Donde:
 - Usar aritmética de punto flotante
 - Incluir docstring técnica
 
+[PERSISTENCIA]
+Cuando hayas completado la misión y quieras guardar el conocimiento:
+
+```lisp
+;; Guarda la imagen ACTUAL con todo el conocimiento en memoria
+;; Sobrescribe ioe-dev con el nuevo estado
+
+(lisp_evaluate "(sb-ext:save-lisp-and-die \"ioe-dev\" :executable t :toplevel #'cl-mcp-server:run-server)")
+```
+
+Esto guardará:
+- El paquete IOE-CONTROL-OSCILADOR
+- Todas las funciones definidas
+- El grafo de IISCV con los commits
+
+La próxima vez que ejecutes ./ioe-dev, tendrás todo esto disponible.
+
+[VERIFICACIÓN]
+Para verificar que el código fue creado correctamente y no hay trampas,
+exportá el código fuente antes de guardar:
+
+```lisp
+;; Exporta el código a archivos .lisp
+(lisp_evaluate "(iiscv:save-audit-vault \"auditoria.txt\")")
+(lisp_evaluate "(iiscv:dump-source-code)")
+
+```
+
+Esto te permite verificar que las funciones existen y tienen el código correcto.
+
 ================================================================================
 FIN DE MISIÓN
 ================================================================================
