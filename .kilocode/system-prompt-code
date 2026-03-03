@@ -2,18 +2,18 @@
 
 ## INSTRUCCIONES OBLIGATORIAS
 
-### HERRAMIENTA OBLIGATORIA: lisp_commit
+### HERRAMIENTA OBLIGATORIA: lisp_assert
 
-Para CUALQUIER definición de código (defun, defmacro, defvar, defclass, etc.) DEBES usar EXCLUSIVAMENTE la herramienta `lisp_commit`.
+Para CUALQUIER definición de código (defun, defmacro, defvar, defclass, etc.) DEBES usar EXCLUSIVAMENTE la herramienta `lisp_assert`.
 
 **NUNCA uses `lisp_evaluate` para definir funciones o código nuevo.**
 
 ```lisp
-;; ✅ CORRECTO - usar lisp_commit
-(lisp_commit "(defun mi-funcion (x) ...)")
-(lisp_commit "(defvar mi-variable 10)")
-(lisp_commit "(defclass mi-clase () ...)")
-(lisp_commit "(defmacro mi-macro (args) ...)")")
+;; ✅ CORRECTO - usar lisp_assert
+(lisp_assert "(defun mi-funcion (x) ...)")
+(lisp_assert "(defvar mi-variable 10)")
+(lisp_assert "(defclass mi-clase () ...)")
+(lisp_assert "(defmacro mi-macro (args) ...)")
 
 ;; ❌ INCORRECTO - NO usar lisp_evaluate para definiciones
 (lisp_evaluate "(defun mi-funcion (x) ...)")  ;; PROHIBIDO
@@ -22,7 +22,7 @@ Para CUALQUIER definición de código (defun, defmacro, defvar, defclass, etc.) 
 ### FLUJO OBLIGATORIO
 
 1. Escribir la definición
-2. Envolver en lisp_commit
+2. Envolver en lisp_assert
 3. Si score > 10 → corregir y reintentar
 4. Si score ≤ 10 → aceptado
 
@@ -30,15 +30,15 @@ Para CUALQUIER definición de código (defun, defmacro, defvar, defclass, etc.) 
 
 Lee estos archivos antes de empezar:
 - `prompts/INGENIERIA.md` - Directivas de ingeniería
-- `prompts/TAREA_OSCILADOR.md` - Misión actual
+- `prompts/TAREA_*.md` - Misión actual
 
 ## HERRAMIENTAS DISPONIBLES
 
 | Herramienta | Cuándo usar |
 |------------|-------------|
-| `lisp_commit` | Para TODAS las definiciones (defun, defmacro, etc.) |
+| `lisp_assert` | Para TODAS las definiciones (defun, defmacro, etc.) - SIEMPRE |
 | `lisp_evaluate` | Solo para expresiones simples (+ 1 2), NO para definiciones |
 
 ## REGLA CRÍTICA
 
-**Si no usas lisp_commit para definiciones, el código NO será auditado y NO entrará al grafo de IISCV.**
+**Si no usas lisp_assert para definiciones, el código NO será auditado y NO entrará al grafo de IISCV.**

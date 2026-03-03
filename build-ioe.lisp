@@ -11,17 +11,17 @@
 (ql:quickload :cl-mcp-server)
 (ql:quickload :iiscv)
 
-;; 3. Registrar la herramienta COMMIT en el servidor MCP
+;; 3. Registrar las herramientas en el servidor MCP
 (in-package :cl-mcp-server.tools)
 
-;; Tool: lisp_commit
-;; Usa make-assert que:
+;; Tool: lisp_assert
+;; IMPORTANTE: Esta es la ÚNICA forma de crear código en IISCV
 ;; 1. Audita con LISA
 ;; 2. Si score ≤ 10 → hace commit automático via rule-finalize-commit-to-graph
 ;; 3. Si score > 10 → NO entra al grafo
 (register-tool
- "lisp_commit"
- "Audita código usando IISCV + LISA. Si pasa el filtro de calidad (score ≤ 10), se registra automáticamente."
+ "lisp_assert"
+ "Audita código usando IISCV + LISA. Si pasa el filtro de calidad (score ≤ 10), se registra automáticamente en el grafo. Úsalo para TODAS las definiciones (defun, defmacro, defvar, defclass, etc.)"
  '(("type" . "object")
    ("required" . ("code"))
    ("properties" . (("code" . (("type" . "string")
@@ -38,9 +38,10 @@
 
 ;; Tool: lisp_evaluate
 ;; Para evaluar expresiones SIN auditoría (tests, debugging, cálculos)
+;; NO usar para crear definiciones - usar lisp_assert
 (register-tool
  "lisp_evaluate"
- "Evalúa expresiones Lisp sin auditoría (para tests, debugging, cálculos)."
+ "Evalúa expresiones Lisp sin auditoría (para cálculos, tests, debugging). NO usar para definiciones - usar lisp_assert."
  '(("type" . "object")
    ("required" . ("code"))
    ("properties" . (("code" . (("type" . "string")
