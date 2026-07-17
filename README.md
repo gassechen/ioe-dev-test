@@ -164,15 +164,15 @@ Contains:
 
 ```lisp
 ;; Audit & Versioning
-(iipv:make-assert form)           ; Audit code
-(iipv:get-source-form "PKG:SYM")  ; Get source code
-(iipv:show-project-milestones)    ; List commits
-(iipv:audit-atomic-history)       ; Audit history
+(iiscv:make-assert form)           ; Audit code
+(iiscv:get-source-form "PKG:SYM")  ; Get source code
+(iiscv:show-project-milestones)    ; List commits
+(iiscv:audit-atomic-history)       ; Audit history
 
 ;; Persistence
-(iipv:save-development-image "img") ; Save for development
-(iipv:save-audit-vault "file")     ; Export audit log
-(iipv:dump-source-code)             ; Export source files
+(iiscv:save-development-image "img") ; Save for development
+(iiscv:save-audit-vault "file")     ; Export audit log
+(iiscv:dump-source-code)             ; Export source files
 
 ;; Image saving (SBCL)
 (sb-ext:save-lisp-and-die "ioe-dev" :executable t :toplevel #'cl-mcp-server:run-server)
